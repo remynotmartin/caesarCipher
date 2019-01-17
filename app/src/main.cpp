@@ -5,7 +5,6 @@
 bool charShift(char*, const int);
 
 const int lengthCap = 32;
-const int shift = 13; // Classic from tabletop RPGs
 
 using std::cin;
 using std::cout;
@@ -18,18 +17,25 @@ int main() {
          << "32 characters.\nOnly letters will be encrypted."
          << "\nInput: ";
     cin.getline(lineBuffer, lengthCap + 1);
-    cout << "\nplaintext: \"" << lineBuffer << "\"\n";
+    cout << "\nMaster: \"" << lineBuffer << "\"\n";
     charShift(lineBuffer, lengthCap + 1);
+    cout << "\nCipher: \"" << lineBuffer << "\"\n";
     cout << "\nEnd of program reached.\n\n";
     return 0;
 }
 
-// My current plan is for this to only shift letters
+// My current plan is for this to only shift letters,
+// and the key is a rotation of 13.
 bool charShift(char* iBuffer, const int size) {
     for (int i = 0; i < size; i++) {
-        if (iBuffer[i] >= 'A' && iBuffer[i] <= 'Z') {
-
-        }
+        if (iBuffer[i] >= 'A' && iBuffer[i] <= 'M')
+            iBuffer[i] += 13;
+        else if (iBuffer[i] >= 'N' && iBuffer[i] <= 'Z')
+            iBuffer[i] -= 13;
+        else if (iBuffer[i] >= 'a' && iBuffer[i] <= 'm')
+            iBuffer[i] += 13;
+        else if (iBuffer[i] >= 'n' && iBuffer[i] <= 'z')
+            iBuffer[i] -= 13;
     }
     return true;
 }
