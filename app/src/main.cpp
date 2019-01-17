@@ -17,7 +17,6 @@ int main() {
     char lineBuffer[lengthCap + 1];
     for (short i = 0; i < lengthCap + 1; i++)
         lineBuffer[i] = '\0';
-    //cout << "Done creating buffer...\n";
     std::ifstream fin(file1);
     if (!fin) {
         std::cerr << "Could not open " << file1 << '\n';
@@ -28,21 +27,14 @@ int main() {
         std::cerr << "Could not open " << file2 << '\n';
         return -1;
     }
-    //cout << "Done opening files...\n";
     while (!fin.eof()) {
-        //cout << "Entering file read loop...\n";
         fin.getline(lineBuffer, lengthCap + 1);
-        //cout << "Just read into line buffer...\n";
         charShift(lineBuffer, lengthCap + 1);
-        //cout << "Just encrypted buffer...\n";
         fout << lineBuffer << '\n';
-        //cout << "Just wrote to file...\n";
         for (short i = 0; i < lengthCap + 1; i++)
             lineBuffer[i] = '\0';
-        //cout << "Just reinitialized buffer...\n";
     }
-    //cout << "Done writing to files. Closing now...\n";
-    // Don't forget to close!
+    // Don't forget to close files!
     fin.close();
     fout.close();
     // Manual demo for the user!
