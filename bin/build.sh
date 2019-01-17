@@ -1,6 +1,6 @@
 #!/bin/sh
 
-g++ -Wall -g -std=c++11 $1
+g++ -Wall -g -std=c++11 ../app/src/main.cpp
 
 # the -g option enables the debugger warnings
 

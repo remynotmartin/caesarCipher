@@ -4,7 +4,11 @@
 
 bool charShift(char*, const int);
 
-const int lengthCap = 32;
+// Text files will not exceed 70 chars per line,
+// but a soft limit of 60 chars is preferred.
+const int lengthCap = 70;
+const char* file1 = "../data/input.txt";
+const char* file2 = "../data/output.txt";
 
 using std::cin;
 using std::cout;
@@ -13,9 +17,38 @@ int main() {
     char lineBuffer[lengthCap + 1];
     for (short i = 0; i < lengthCap + 1; i++)
         lineBuffer[i] = '\0';
+    //cout << "Done creating buffer...\n";
+    std::ifstream fin(file1);
+    if (!fin) {
+        std::cerr << "Could not open " << file1 << '\n';
+        return -1;
+    }
+    std::ofstream fout(file2);
+    if (!fout) {
+        std::cerr << "Could not open " << file2 << '\n';
+        return -1;
+    }
+    //cout << "Done opening files...\n";
+    while (!fin.eof()) {
+        //cout << "Entering file read loop...\n";
+        fin.getline(lineBuffer, lengthCap + 1);
+        //cout << "Just read into line buffer...\n";
+        charShift(lineBuffer, lengthCap + 1);
+        //cout << "Just encrypted buffer...\n";
+        fout << lineBuffer << '\n';
+        //cout << "Just wrote to file...\n";
+        for (short i = 0; i < lengthCap + 1; i++)
+            lineBuffer[i] = '\0';
+        //cout << "Just reinitialized buffer...\n";
+    }
+    //cout << "Done writing to files. Closing now...\n";
+    // Don't forget to close!
+    fin.close();
+    fout.close();
+    // Manual demo for the user!
     cout << "Please input a line of text not exceeding "
-         << "32 characters.\nOnly letters will be encrypted."
-         << "\nInput: ";
+         << lengthCap << " characters.\nOnly letters will"
+         << " be encrypted.\nInput: ";
     cin.getline(lineBuffer, lengthCap + 1);
     cout << "\nMaster: \"" << lineBuffer << "\"\n";
     charShift(lineBuffer, lengthCap + 1);
