@@ -33,3 +33,6 @@
 
 # VIM
 *.swp
+
+# All input files inside of the data/ directory
+data/*
